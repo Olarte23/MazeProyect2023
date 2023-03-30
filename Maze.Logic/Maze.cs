@@ -45,93 +45,85 @@
             {
                 for (; j < N - 1; j++)
                 {
-                    if (row == 9)
-                    {
-                        row--;
-                        j--;
-                        _maze[row, j] = 'R';
+                    //if (row == 9)
+                    //{
+                    //    row--;
+                    //    j--;
+                    //    _maze[row, j] = 'R';
 
-                    }
+                    //}
                     if (_maze[row, j + 1] == ' ')
                     {
                         _maze[row, j] = 'R';
                     }
-                    else
+                    else if (j == N - 2)
                     {
-                        if (j == N - 2)
+                        for (; row < N - 2; row++)
                         {
-                            for (; row < N - 1; row++)
+                            if (_maze[row, j] == ' ')
                             {
-                                if (_maze[row, j] == ' ')
+                                _maze[row, j] = 'D';
+                            }
+
+                            else
+                            {
+                                row--;
+                                _maze[row, j] = 'L';
+                                j--;
+                                if (_maze[row, j] == ' ' && _maze[row + 1, j] != ' ' && _maze[row, j - 1] != ' ')
                                 {
-                                    _maze[row, j] = 'D';                                    
+                                    throw new Exception("The Way is not posible.");
                                 }
-                                
-                                else
-                                {                                    
-                                    row--;
-                                    _maze[row, j] = 'L';
-                                    j--;
-                                    if (_maze[row, j] == ' ' && _maze[row + 1, j] != ' ' && _maze[row, j - 1] != ' ')
+                                else if (_maze[row, j] == ' ' && _maze[row + 1, j] == ' ')
+                                {
+                                    if (_maze[row, j + 2] == ' ')
                                     {
-                                        throw new Exception("The Way is not posible.");
+                                        _maze[row, j] = 'D';
+                                        row++;
+                                        _maze[row, j] = 'D';
+                                        row++;
+                                        break;
                                     }
                                     else
                                     {
-                                        if (_maze[row, j] == ' ' && _maze[row + 1, j] == ' ')
-                                        {
-                                            if (_maze[row, j + 2] == ' ')
-                                            {
-                                                _maze[row, j] = 'D';                                               
-                                                row++;
-                                                _maze[row, j] = 'R';
-                                            }
-                                            else
-                                            {
-                                                _maze[row, j] = 'L';
-                                            }
-                                            
-
-                                        }
-
-                                        
-                                        row++;
-                                        if (!(_maze[row, j] == ' '))
-                                        {
-                                            row--;
-                                            _maze[row, j] = 'L';
-                                            j--;
-                                        }
-                                        
-
+                                        _maze[row, j] = 'L';
+                                        break;
                                     }
-                                    else throw new Exception("The Way is not posible.");
                                 }
-                               
-                            }
-                        }
-                        else
-                        {
-                            _maze[row, j] = 'D';
-                            j--;
-                            row++;
-                        }
+                                //row++;
+                                //if (!(_maze[row, j] == ' '))
+                                //{
+                                //    row--;
+                                //    _maze[row, j] = 'L';
+                                //    j--;
+                                //}
 
-                        if (!(_maze[row, j + 1] == ' '))
-                        {
-                            throw new Exception("The Way is not posible.");
+
+
+                            else throw new Exception("The Way is not posible.");
+                            }
+
                         }
-                    }             
-                 
-                }                
+                        _maze[row, j] = 'R';
+                        j++;
+                        _maze[row, j] = 'R';
+
+                    }
+                    else if (!(_maze[row + 1, j] == ' '))
+                    {
+                        throw new Exception("The Way is not posible.");
+                    }
+                    else
+                    {
+                        _maze[row, j] = 'D';
+                        row++;
+                    }
+                }
 
 
             } while (j < N - 2 || row < N - 2);
-            
-
-        
-
         }
+        
             //do
             //{
             //    if (_maze[row, i] == ' ')
